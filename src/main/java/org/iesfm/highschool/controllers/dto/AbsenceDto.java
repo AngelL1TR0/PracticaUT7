@@ -21,19 +21,12 @@ public class AbsenceDto {
     @NotNull
     @Positive
     private Integer id;
-
     @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Timestamp date;
-
     @NotNull
     @Positive
     private Integer numHours;
-
-    @NotBlank
-    private Student student;
-    @NotBlank
-    private Subject subject;
 
 
     public static Absence toEntity(AbsenceDto dto){
@@ -41,8 +34,8 @@ public class AbsenceDto {
                 dto.getId(),
                 dto.getDate(),
                 dto.getNumHours(),
-                dto.getStudent(),
-                dto.getSubject()
+                new Student(),
+                new Subject()
         );
     }
 
@@ -50,10 +43,7 @@ public class AbsenceDto {
         return new AbsenceDto(
                 absence.getId(),
                 absence.getDate(),
-                absence.getNumHours(),
-                absence.getStudent(),
-                absence.getSubject()
+                absence.getNumHours()
         );
     }
-
 }

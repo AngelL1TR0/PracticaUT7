@@ -24,7 +24,7 @@ public class TeacherDto {
     @NotBlank
     private String secondSurname;
 
-    public static Teacher toEntity(TeacherDto dto){
+    public static Teacher toEntity(TeacherDto dto) {
         return new Teacher(
                 dto.getId(),
                 dto.getFirstSurname(),
@@ -34,7 +34,7 @@ public class TeacherDto {
         );
     }
 
-    public static TeacherDto toDto(Teacher teacher){
+    public static TeacherDto toDto(Teacher teacher) {
         return new TeacherDto(
                 teacher.getId(),
                 teacher.getFirstSurname(),

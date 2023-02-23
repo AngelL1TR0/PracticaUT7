@@ -10,4 +10,6 @@ public interface AbsenceDAO extends JpaRepository<Absence, Integer> {
     List<Absence> getAllAbsences();
 
     boolean addAbsence(Absence absence);
+
+    boolean delete(Integer absenceId);
 }

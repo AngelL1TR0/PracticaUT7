@@ -5,10 +5,7 @@ import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,10 +32,32 @@ public class AbsenceController {
     public ResponseEntity<Void> addAbsences(
             @Valid @RequestBody AbsenceDto absence
     ) {
-        if (schoolService.add(AbsenceDto.toEntity(absence))) {
+        if (schoolService.addAbsence(AbsenceDto.toEntity(absence))) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+    }
+
+    @PutMapping(path = "/absences/{absenceId}")
+    public ResponseEntity<Void> updateAbsence(
+            @PathVariable("absenceId") Integer absenceId,
+            @Valid @RequestBody AbsenceDto absenceDto
+    ){
+        if (schoolService.updateAbsense(absenceId, AbsenceDto.toEntity(absenceDto))){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping(path = "/absences/{absenceId}")
+    public ResponseEntity<Void> delete (
+            @PathVariable("absenceId") Integer absenceId){
+        if (schoolService.deleteAbsence(absenceId)){
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }

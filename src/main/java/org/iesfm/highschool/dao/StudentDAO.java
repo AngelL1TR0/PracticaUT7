@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface StudentDAO extends JpaRepository<Student, Integer> {
     List<Student> getAllStudents();
+
+    boolean delete(Integer studentId);
 }
