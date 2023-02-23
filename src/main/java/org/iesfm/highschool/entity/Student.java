@@ -16,15 +16,19 @@ import java.util.Set;
 @Table(name = "student")
 public class Student implements Serializable {
     @Id
-    private Long id;
-    @Column(name = "first_surname")
-    private String firstSurname;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column(name = "name")
     private String name;
+    @Column(name = "first_surname")
+    private String firstSurname;
     @Column(name = "second_surname")
     private String secondSurname;
     @OneToMany(mappedBy = "student")
     private List<Absence> absences;
+    @ManyToMany(mappedBy = "students")
+    private Set<Subject> students;
 
 }
 

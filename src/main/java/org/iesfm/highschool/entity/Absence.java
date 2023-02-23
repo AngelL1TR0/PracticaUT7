@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 @Table(name = "absence")
 public class Absence implements Serializable {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "date")

@@ -16,7 +16,9 @@ import java.util.Set;
 @Table(name = "subject")
 public class Subject implements Serializable {
     @Id
-    private Long id;
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
     @Column(name = "name")
     private String name;
     @Column(name = "total_hours")
@@ -27,9 +29,11 @@ public class Subject implements Serializable {
     @OneToMany(mappedBy = "subject")
     private List<Absence> absences;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "student_subject",
+    @JoinTable(
+            name = "student_subject",
             joinColumns = {@JoinColumn(name = "subject")},
-            inverseJoinColumns = {@JoinColumn(name = "student")})
+            inverseJoinColumns = {@JoinColumn(name = "student")}
+    )
     private Set<Student> students;
 
 }
