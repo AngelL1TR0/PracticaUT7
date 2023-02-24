@@ -22,7 +22,7 @@ public class TeacherController {
 
     @GetMapping(path = "/teachers")
     public ResponseEntity<List<TeacherDto>> listAllTeachers(
-    ){
+    ) {
         return ResponseEntity.ok(
                 schoolService
                         .listTeachers()
@@ -31,6 +31,7 @@ public class TeacherController {
                         .collect(Collectors.toList())
         );
     }
+
     @PostMapping(path = "/teacher")
     public ResponseEntity<Void> addTeacher(
             @Valid @RequestBody TeacherDto teacher) {
@@ -41,12 +42,21 @@ public class TeacherController {
         }
     }
 
-    @PutMapping(path = "/teacher/{teacherId}")
-    public void updateTeacher(@PathVariable Integer id, @RequestBody Teacher teacher) {
+    @PutMapping(path = "/teacher/{id}")
+    public ResponseEntity<Teacher> updateTeacher(
+            @PathVariable Integer id,
+            @RequestBody Teacher teacher) {
         Teacher t = schoolService.getTeacherById(id);
         if (t != null) {
+            t.setId(teacher.getId());
+            t.setName(teacher.getName());
+            t.setFirstSurname(teacher.getFirstSurname());
+            t.setSecondSurname(teacher.getSecondSurname());
             t.setSubjects(teacher.getSubjects());
             schoolService.addTeacher(t);
+            return ResponseEntity.ok().body(t);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 

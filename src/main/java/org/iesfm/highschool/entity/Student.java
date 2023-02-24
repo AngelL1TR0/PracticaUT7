@@ -17,7 +17,6 @@ import java.util.Set;
 public class Student implements Serializable {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "name")
     private String name;
@@ -28,7 +27,7 @@ public class Student implements Serializable {
     @OneToMany(mappedBy = "student")
     private List<Absence> absences;
     @ManyToMany(mappedBy = "students")
-    private Set<Subject> students;
+    private Set<Subject> subjects;
 
 }
 

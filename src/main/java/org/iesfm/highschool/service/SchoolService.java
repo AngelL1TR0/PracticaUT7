@@ -12,9 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class SchoolService {
@@ -110,7 +108,7 @@ public class SchoolService {
     public Absence getAbsenceById(Integer id) {
         return absenceDAO.findById(id).orElse(null);
     }
-
+/*
     public List<Student> getStudentsWithExcessiveAbsences(Integer subjectId, Double threshold) {
         List<Student> students = subjectDAO.getStudentsBySubjectId(subjectId);
         List<Student> studentsWithExcessiveAbsences = new ArrayList<>();
@@ -124,4 +122,6 @@ public class SchoolService {
         }
         return studentsWithExcessiveAbsences;
     }
+
+ */
 }

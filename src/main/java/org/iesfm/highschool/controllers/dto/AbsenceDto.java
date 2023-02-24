@@ -8,7 +8,6 @@ import org.iesfm.highschool.entity.Absence;
 import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.entity.Subject;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.sql.Timestamp;
@@ -22,11 +21,16 @@ public class AbsenceDto {
     @Positive
     private Integer id;
     @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private Timestamp date;
     @NotNull
     @Positive
     private Integer numHours;
+
+    @NotNull
+    private Student student;
+    @NotNull
+    private Subject subject;
 
 
     public static Absence toEntity(AbsenceDto dto){
@@ -43,7 +47,9 @@ public class AbsenceDto {
         return new AbsenceDto(
                 absence.getId(),
                 absence.getDate(),
-                absence.getNumHours()
+                absence.getNumHours(),
+                absence.getStudent(),
+                absence.getSubject()
         );
     }
 }

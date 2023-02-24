@@ -15,6 +15,7 @@ import java.util.List;
 @Table(name = "teacher")
 public class Teacher implements Serializable {
     @Id
+    @Column(name = "id")
     private Integer id;
     @Column(name = "first_surname")
     private String firstSurname;

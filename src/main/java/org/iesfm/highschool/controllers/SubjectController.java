@@ -1,9 +1,6 @@
 package org.iesfm.highschool.controllers;
 
-import org.iesfm.highschool.controllers.dto.StudentDto;
 import org.iesfm.highschool.controllers.dto.SubjectDto;
-import org.iesfm.highschool.entity.Absence;
-import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.entity.Subject;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +29,7 @@ public class SubjectController {
         );
     }
 
-    @PostMapping(path = "/subject")
+    @PostMapping(path = "/subjects")
     public ResponseEntity<Void> addSubject(
             @Valid @RequestBody SubjectDto subject) {
         if (schoolService.addSubject(SubjectDto.toEntity(subject))) {
@@ -42,12 +39,22 @@ public class SubjectController {
         }
     }
 
-    @PutMapping(path = "/subject/{subjectId}")
-    public void updateSubject(@PathVariable Integer id, @RequestBody Subject subject) {
+    @PutMapping(path = "/subject/{id}")
+    public ResponseEntity<Subject> updateSubject(
+            @PathVariable Integer id,
+            @RequestBody Subject subject) {
         Subject s = schoolService.getSubjectById(id);
         if (s != null) {
+            s.setId(subject.getId());
+            s.setName(subject.getName());
             s.setTotalHours(subject.getTotalHours());
+            s.setTeacher(subject.getTeacher());
+            s.setAbsences(subject.getAbsences());
+            s.setStudents(subject.getStudents());
             schoolService.addSubject(s);
+            return ResponseEntity.ok().body(s);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -59,7 +66,7 @@ public class SubjectController {
     }
 
     //endpoint para el ejercicio 2
-
+/*
     @GetMapping("/{subjectId}/students")
     public ResponseEntity<List<Student>> getStudentsWithExcessiveAbsences(
             @PathVariable("subjectId") Integer subjectId,
@@ -70,4 +77,6 @@ public class SubjectController {
         }
         return ResponseEntity.ok(students);
     }
+
+ */
 }
