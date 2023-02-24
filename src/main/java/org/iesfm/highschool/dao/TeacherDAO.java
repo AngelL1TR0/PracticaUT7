@@ -7,7 +7,4 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface TeacherDAO extends JpaRepository<Teacher, Integer> {
-    List<Teacher> getAllTeachers();
-
-    boolean delete(Integer teacherId);
 }

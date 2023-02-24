@@ -52,12 +52,9 @@ public class TeacherController {
     }
 
     @DeleteMapping(path = "/teacher/{teacherId}")
-    public ResponseEntity<Void> deleteTeacher (
-            @PathVariable("teacherId") Integer teacherId){
-        if (schoolService.deleteTeacher(teacherId)){
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteTeacher(
+            @PathVariable("teacherId") Integer teacherId) {
+        schoolService.deleteTeacher(teacherId);
+        return ResponseEntity.ok().build();
     }
 }

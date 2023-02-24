@@ -19,7 +19,7 @@ public class SubjectController {
 
     @GetMapping(path = "/subjects")
     public ResponseEntity<List<SubjectDto>> listAllSubjets(
-    ){
+    ) {
         return ResponseEntity.ok(
                 schoolService
                         .listSubjects()
@@ -28,6 +28,7 @@ public class SubjectController {
                         .collect(Collectors.toList())
         );
     }
+
     @PostMapping(path = "/subject")
     public ResponseEntity<Void> addSubject(
             @Valid @RequestBody SubjectDto subject) {
@@ -42,8 +43,8 @@ public class SubjectController {
     public ResponseEntity<Void> updateSubject(
             @PathVariable("subjectId") Integer subjectId,
             @Valid @RequestBody SubjectDto subjectDto
-    ){
-        if (schoolService.updatesubject(subjectId, SubjectDto.toEntity(subjectDto))){
+    ) {
+        if (schoolService.updatesubject(subjectId, SubjectDto.toEntity(subjectDto))) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -51,12 +52,9 @@ public class SubjectController {
     }
 
     @DeleteMapping(path = "/subject/{subjectId}")
-    public ResponseEntity<Void> deleteSubject (
-            @PathVariable("subjectId") Integer subjectId){
-        if (schoolService.deleteSubject(subjectId)){
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteSubject(
+            @PathVariable("subjectId") Integer subjectId) {
+        schoolService.deleteSubject(subjectId);
+        return ResponseEntity.ok().build();
     }
 }

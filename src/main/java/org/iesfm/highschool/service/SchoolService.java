@@ -27,19 +27,19 @@ public class SchoolService {
     private TeacherDAO teacherDAO;
 
     public List<Absence> listAbsences() {
-        return absenceDAO.getAllAbsences();
+        return absenceDAO.findAll();
     }
 
     public List<Student> listStudents() {
-        return studentDAO.getAllStudents();
+        return studentDAO.findAll();
     }
 
     public List<Subject> listSubjects() {
-        return subjectDAO.getAllSubjects();
+        return subjectDAO.findAll();
     }
 
     public List<Teacher> listTeachers() {
-        return teacherDAO.getAllTeachers();
+        return teacherDAO.findAll();
     }
 
     public boolean addStudent(Student student) {
@@ -79,20 +79,20 @@ public class SchoolService {
         }
     }
 
-    public boolean deleteTeacher(Integer teacherId) {
-        return teacherDAO.delete(teacherId);
+    public void deleteTeacher(Integer teacherId) {
+        teacherDAO.deleteById(teacherId);
     }
 
-    public boolean deleteStudent(Integer studentId) {
-        return studentDAO.delete(studentId);
+    public void deleteStudent(Integer studentId) {
+        studentDAO.deleteById(studentId);
     }
 
-    public boolean deleteSubject(Integer subjectId) {
-        return subjectDAO.delete(subjectId);
+    public void deleteSubject(Integer subjectId) {
+         subjectDAO.deleteById(subjectId);
     }
 
-    public boolean deleteAbsence(Integer absenceId) {
-        return absenceDAO.delete(absenceId);
+    public void deleteAbsence(Integer absenceId) {
+        absenceDAO.deleteById(absenceId);
     }
 
     public boolean updateTeacher(Integer teacherId, Teacher teacher) {

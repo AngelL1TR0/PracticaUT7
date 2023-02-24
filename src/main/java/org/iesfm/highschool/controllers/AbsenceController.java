@@ -43,8 +43,8 @@ public class AbsenceController {
     public ResponseEntity<Void> updateAbsence(
             @PathVariable("absenceId") Integer absenceId,
             @Valid @RequestBody AbsenceDto absenceDto
-    ){
-        if (schoolService.updateAbsense(absenceId, AbsenceDto.toEntity(absenceDto))){
+    ) {
+        if (schoolService.updateAbsense(absenceId, AbsenceDto.toEntity(absenceDto))) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();
@@ -52,12 +52,9 @@ public class AbsenceController {
     }
 
     @DeleteMapping(path = "/absences/{absenceId}")
-    public ResponseEntity<Void> delete (
-            @PathVariable("absenceId") Integer absenceId){
-        if (schoolService.deleteAbsence(absenceId)){
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Void> deleteAbsence(
+            @PathVariable("absenceId") Integer absenceId) {
+        schoolService.deleteAbsence(absenceId);
+        return ResponseEntity.ok().build();
     }
 }
