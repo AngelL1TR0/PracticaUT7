@@ -2,6 +2,7 @@ package org.iesfm.highschool.controllers;
 
 import org.iesfm.highschool.controllers.dto.AbsenceDto;
 import org.iesfm.highschool.controllers.dto.StudentDto;
+import org.iesfm.highschool.entity.Absence;
 import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -54,5 +56,17 @@ public class StudentController {
             @PathVariable("studentId") Integer studentId) {
         schoolService.deleteStudent(studentId);
         return ResponseEntity.ok().build();
+    }
+
+    //ej3
+    @GetMapping("/alumnos/{id}/faltas")
+    public ResponseEntity<Integer> obtenerFaltas(@PathVariable("id") Integer id) {
+        Optional<Student> student= Optional.ofNullable(schoolService.getStudentById(id));
+        if (student.isPresent()) {
+            List<Absence> faltas = student.get().getAbsences();
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

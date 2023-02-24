@@ -3,6 +3,7 @@ package org.iesfm.highschool.controllers;
 import org.iesfm.highschool.controllers.dto.StudentDto;
 import org.iesfm.highschool.controllers.dto.SubjectDto;
 import org.iesfm.highschool.entity.Absence;
+import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.entity.Subject;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,18 @@ public class SubjectController {
             @PathVariable("subjectId") Integer subjectId) {
         schoolService.deleteSubject(subjectId);
         return ResponseEntity.ok().build();
+    }
+
+    //endpoint para el ejercicio 2
+
+    @GetMapping("/{subjectId}/students")
+    public ResponseEntity<List<Student>> getStudentsWithExcessiveAbsences(
+            @PathVariable("subjectId") Integer subjectId,
+            @RequestParam(value = "threshold", required = false, defaultValue = "10") Double threshold) {
+        List<Student> students = schoolService.getStudentsWithExcessiveAbsences(subjectId, threshold);
+        if (students.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(students);
     }
 }

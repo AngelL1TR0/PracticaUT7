@@ -11,6 +11,7 @@ import org.iesfm.highschool.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,5 +109,19 @@ public class SchoolService {
     }
     public Absence getAbsenceById(Integer id) {
         return absenceDAO.findById(id).orElse(null);
+    }
+
+    public List<Student> getStudentsWithExcessiveAbsences(Integer subjectId, Double threshold) {
+        List<Student> students = subjectDAO.getStudentsBySubjectId(subjectId);
+        List<Student> studentsWithExcessiveAbsences = new ArrayList<>();
+        for (Student student : students) {
+            Integer totalHours = subjectDAO.getTotalHoursByStudentAndSubject(student.getId(), subjectId);
+            Integer totalAbsences = subjectDAO.getTotalAbsencesByStudentAndSubject(student.getId(), subjectId);
+            Double absencePercentage = (double) totalAbsences / totalHours * 100;
+            if (absencePercentage > threshold) {
+                studentsWithExcessiveAbsences.add(student);
+            }
+        }
+        return studentsWithExcessiveAbsences;
     }
 }
