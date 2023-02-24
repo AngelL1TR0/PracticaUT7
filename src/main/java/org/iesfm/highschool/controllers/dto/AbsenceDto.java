@@ -5,8 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.iesfm.highschool.entity.Absence;
-import org.iesfm.highschool.entity.Student;
-import org.iesfm.highschool.entity.Subject;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
@@ -28,28 +26,28 @@ public class AbsenceDto {
     private Integer numHours;
 
     @NotNull
-    private Student student;
+    private StudentDto student;
     @NotNull
-    private Subject subject;
+    private SubjectDto subject;
 
 
-    public static Absence toEntity(AbsenceDto dto){
+    public static Absence toEntity(AbsenceDto dto) {
         return new Absence(
                 dto.getId(),
                 dto.getDate(),
                 dto.getNumHours(),
-                new Student(),
-                new Subject()
+                StudentDto.toEntity(dto.getStudent()),
+                SubjectDto.toEntity(dto.getSubject())
         );
     }
 
-    public static AbsenceDto toDto(Absence absence){
+    public static AbsenceDto toDto(Absence absence) {
         return new AbsenceDto(
                 absence.getId(),
                 absence.getDate(),
                 absence.getNumHours(),
-                absence.getStudent(),
-                absence.getSubject()
+                StudentDto.toDto(absence.getStudent()),
+                SubjectDto.toDto(absence.getSubject())
         );
     }
 }

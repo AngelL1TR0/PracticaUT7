@@ -24,17 +24,17 @@ public class SubjectDto {
     @NotBlank
     private String name;
     @NotNull
+    @Positive
     private Integer totalHours;
-
     @NotNull
-    private Teacher teacher;
+    private TeacherDto teacher;
 
     public static Subject toEntity(SubjectDto dto){
         return new Subject(
                 dto.getId(),
                 dto.getName(),
                 dto.getTotalHours(),
-                new Teacher(),
+               TeacherDto.toEntity(dto.getTeacher()),
                 new ArrayList<>(),
                 new HashSet<>()
         );
@@ -45,7 +45,7 @@ public class SubjectDto {
                 subject.getId(),
                 subject.getName(),
                 subject.getTotalHours(),
-                subject.getTeacher()
+                TeacherDto.toDto(subject.getTeacher())
         );
     }
 }
