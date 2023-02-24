@@ -3,6 +3,8 @@ package org.iesfm.highschool.controllers;
 import org.iesfm.highschool.controllers.dto.StudentDto;
 import org.iesfm.highschool.controllers.dto.TeacherDto;
 import org.iesfm.highschool.dao.TeacherDAO;
+import org.iesfm.highschool.entity.Subject;
+import org.iesfm.highschool.entity.Teacher;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,14 +42,11 @@ public class TeacherController {
     }
 
     @PutMapping(path = "/teacher/{teacherId}")
-    public ResponseEntity<Void> updateTeacher(
-            @PathVariable("teacherId") Integer teacherId,
-            @Valid @RequestBody TeacherDto teacherDto
-    ){
-        if (schoolService.updateTeacher(teacherId, TeacherDto.toEntity(teacherDto))){
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    public void updateTeacher(@PathVariable Integer id, @RequestBody Teacher teacher) {
+        Teacher t = schoolService.getTeacherById(id);
+        if (t != null) {
+            t.setSubjects(teacher.getSubjects());
+            schoolService.addTeacher(t);
         }
     }
 

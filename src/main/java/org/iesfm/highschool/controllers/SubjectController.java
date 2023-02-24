@@ -2,6 +2,8 @@ package org.iesfm.highschool.controllers;
 
 import org.iesfm.highschool.controllers.dto.StudentDto;
 import org.iesfm.highschool.controllers.dto.SubjectDto;
+import org.iesfm.highschool.entity.Absence;
+import org.iesfm.highschool.entity.Subject;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -40,14 +42,11 @@ public class SubjectController {
     }
 
     @PutMapping(path = "/subject/{subjectId}")
-    public ResponseEntity<Void> updateSubject(
-            @PathVariable("subjectId") Integer subjectId,
-            @Valid @RequestBody SubjectDto subjectDto
-    ) {
-        if (schoolService.updatesubject(subjectId, SubjectDto.toEntity(subjectDto))) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    public void updateSubject(@PathVariable Integer id, @RequestBody Subject subject) {
+        Subject s = schoolService.getSubjectById(id);
+        if (s != null) {
+            s.setTotalHours(subject.getTotalHours());
+            schoolService.addSubject(s);
         }
     }
 

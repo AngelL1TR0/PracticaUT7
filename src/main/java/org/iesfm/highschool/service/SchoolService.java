@@ -95,48 +95,18 @@ public class SchoolService {
         absenceDAO.deleteById(absenceId);
     }
 
-    public boolean updateTeacher(Integer teacherId, Teacher teacher) {
-        Map<Integer, Teacher> teacherMap = new HashMap<>();
-        if (teacherMap.containsKey(teacherId)) {
-            teacherMap.remove(teacherId);
-            teacherMap.put(teacher.getId(), teacher);
-            return true;
-        } else {
-            return false;
-        }
+    public Teacher getTeacherById(Integer id) {
+        return teacherDAO.findById(id).orElse(null);
     }
 
-    public boolean updatesubject(Integer subjectId, Subject subject) {
-        Map<Integer, Subject> subjectMap = new HashMap<>();
-        if (subjectMap.containsKey(subjectId)) {
-            subjectMap.remove(subjectId);
-            subjectMap.put(subject.getId(), subject);
-            return true;
-        } else {
-            return false;
-        }
+    public Subject getSubjectById(Integer id) {
+        return subjectDAO.findById(id).orElse(null);
     }
 
-    public boolean updateStudent(Integer studentId, Student student) {
-        Map<Integer, Student> studentMap = new HashMap<>();
-        if (studentMap.containsKey(studentId)) {
-            studentMap.remove(studentId);
-            studentMap.put(student.getId(), student);
-            return true;
-        } else {
-            return false;
-        }
+    public Student getStudentById(Integer id) {
+        return studentDAO.findById(id).orElse(null);
     }
-
-    public boolean updateAbsense(Integer abcenseId, Absence absence) {
-        Map<Integer, Absence> absenceMap = new HashMap<>();
-        if (absenceMap.containsKey(abcenseId)) {
-            absenceMap.remove(abcenseId);
-            absenceMap.put(absence.getId(), absence);
-            return true;
-        } else {
-            return false;
-        }
+    public Absence getAbsenceById(Integer id) {
+        return absenceDAO.findById(id).orElse(null);
     }
-
 }

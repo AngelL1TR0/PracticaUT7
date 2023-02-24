@@ -1,6 +1,8 @@
 package org.iesfm.highschool.controllers;
 
 import org.iesfm.highschool.controllers.dto.AbsenceDto;
+import org.iesfm.highschool.entity.Absence;
+import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,6 +34,7 @@ public class AbsenceController {
     public ResponseEntity<Void> addAbsences(
             @Valid @RequestBody AbsenceDto absence
     ) {
+
         if (schoolService.addAbsence(AbsenceDto.toEntity(absence))) {
             return ResponseEntity.ok().build();
         } else {
@@ -40,14 +43,11 @@ public class AbsenceController {
     }
 
     @PutMapping(path = "/absences/{absenceId}")
-    public ResponseEntity<Void> updateAbsence(
-            @PathVariable("absenceId") Integer absenceId,
-            @Valid @RequestBody AbsenceDto absenceDto
-    ) {
-        if (schoolService.updateAbsense(absenceId, AbsenceDto.toEntity(absenceDto))) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
+    public void updateAbsence(@PathVariable Integer id, @RequestBody Absence absence) {
+        Absence a = schoolService.getAbsenceById(id);
+        if (a != null) {
+            a.setNumHours(absence.getNumHours());
+            schoolService.addAbsence(a);
         }
     }
 
