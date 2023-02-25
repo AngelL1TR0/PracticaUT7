@@ -1,7 +1,6 @@
 package org.iesfm.highschool.controllers;
 
 import org.iesfm.highschool.controllers.dto.StudentDto;
-import org.iesfm.highschool.entity.Absence;
 import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController

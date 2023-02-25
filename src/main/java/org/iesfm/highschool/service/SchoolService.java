@@ -153,6 +153,7 @@ public class SchoolService {
 
     public List<Absence> getAbsencesByStudentId(Integer studentId) {
         Student student = studentDAO.findById(studentId).orElse(null);
+        assert student != null;
         List<Absence> absences = student.getAbsences();
         if (absences.size() > 1) {
             absences = absences.subList(0, 1);

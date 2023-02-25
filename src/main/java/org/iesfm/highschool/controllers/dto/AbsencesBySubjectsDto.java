@@ -16,7 +16,7 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AbsencesSubjectsDto {
+public class AbsencesBySubjectsDto {
     @NotNull
     @Positive
     private Integer id;
@@ -29,7 +29,7 @@ public class AbsencesSubjectsDto {
     @NotNull
     private Set<StudentDto> students;
 
-    public static Subject toEntity(SubjectDto dto){
+    public static Subject toEntity(SubjectDto dto) {
         return new Subject(
                 dto.getId(),
                 dto.getName(),
@@ -40,13 +40,13 @@ public class AbsencesSubjectsDto {
         );
     }
 
-    public static AbsencesSubjectsDto toDto(Subject subject, double percentage){
+    public static AbsencesBySubjectsDto toDto(Subject subject, double percentage) {
         Set<Student> students = subject.getStudents();
         Set<StudentDto> studentDtos = new HashSet<>();
-        for (Student student : students){
+        for (Student student : students) {
             studentDtos.add(StudentDto.toDto(student));
         }
-        return new AbsencesSubjectsDto(
+        return new AbsencesBySubjectsDto(
                 subject.getId(),
                 subject.getName(),
                 subject.getTotal_hours(),

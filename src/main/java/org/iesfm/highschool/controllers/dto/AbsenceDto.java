@@ -14,7 +14,6 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AbsenceDto {
-
     @NotNull
     @Positive
     private Integer id;

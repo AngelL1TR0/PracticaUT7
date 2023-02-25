@@ -8,14 +8,13 @@ import org.iesfm.highschool.entity.Subject;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SimpleSubjectDto implements Serializable {
+public class SimpleSubjectDto {
     @NotNull
     @Positive
     private Integer id;
@@ -25,8 +24,7 @@ public class SimpleSubjectDto implements Serializable {
     @Positive
     private Integer total_hours;
 
-    public static Subject toEntity(SimpleSubjectDto dto){
-        Subject subject = new Subject();
+    public static Subject toEntity(SimpleSubjectDto dto) {
         return new Subject(
                 dto.getId(),
                 dto.getName(),
@@ -37,7 +35,7 @@ public class SimpleSubjectDto implements Serializable {
         );
     }
 
-    public static SimpleSubjectDto toDto(Subject entity){
+    public static SimpleSubjectDto toDto(Subject entity) {
         return new SimpleSubjectDto(
                 entity.getId(),
                 entity.getName(),

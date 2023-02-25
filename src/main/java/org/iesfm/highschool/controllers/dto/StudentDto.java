@@ -15,7 +15,6 @@ import java.util.HashSet;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudentDto {
-
     @NotNull
     @Positive
     private Integer id;
@@ -26,7 +25,7 @@ public class StudentDto {
     @NotBlank
     private String second_surname;
 
-    public static Student toEntity(StudentDto dto){
+    public static Student toEntity(StudentDto dto) {
         return new Student(
                 dto.getId(),
                 dto.getFirst_surname(),
@@ -37,7 +36,7 @@ public class StudentDto {
         );
     }
 
-    public static StudentDto toDto(Student student){
+    public static StudentDto toDto(Student student) {
         return new StudentDto(
                 student.getId(),
                 student.getFirst_surname(),

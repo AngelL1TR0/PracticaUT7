@@ -1,8 +1,8 @@
 package org.iesfm.highschool.controllers;
 
 import org.iesfm.highschool.controllers.dto.AbsenceDto;
-import org.iesfm.highschool.controllers.dto.AbsencesStudentDto;
-import org.iesfm.highschool.controllers.dto.AbsencesSubjectsDto;
+import org.iesfm.highschool.controllers.dto.AbsencesByStudentDto;
+import org.iesfm.highschool.controllers.dto.AbsencesBySubjectsDto;
 import org.iesfm.highschool.entity.Absence;
 import org.iesfm.highschool.entity.Student;
 import org.iesfm.highschool.entity.Subject;
@@ -72,27 +72,27 @@ public class AbsenceController {
     }
 
     @GetMapping(path = "/absence/subject/{id_subject}")
-    public ResponseEntity<AbsencesSubjectsDto> getStudentByPercentaje(
+    public ResponseEntity<AbsencesBySubjectsDto> getStudentByPercentaje(
             @PathVariable("id_subject") Integer subjectId,
             @RequestParam(value = "percentage", required = false) double percentage
     ) {
         Subject subject = schoolService.getSubjectById(subjectId);
         Set<Student> studentSubject = schoolService.getStudentsByPercentage(subject, percentage);
         subject.setStudents(studentSubject);
-        return ResponseEntity.ok(AbsencesSubjectsDto.toDto(subject, percentage));
+        return ResponseEntity.ok(AbsencesBySubjectsDto.toDto(subject, percentage));
     }
 
     @GetMapping("/absences/student/{studentId}")
-    public ResponseEntity<AbsencesStudentDto> getAbsencesByStudentId(
+    public ResponseEntity<AbsencesByStudentDto> getAbsencesByStudentId(
             @PathVariable Integer studentId) {
         List<Absence> absences = schoolService.getAbsencesByStudentId(studentId);
         if (absences == null || absences.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        List<AbsencesStudentDto> absenceDtoList = absences.stream()
-                .map(AbsencesStudentDto::toDto)
+        List<AbsencesByStudentDto> absenceDtoList = absences.stream()
+                .map(AbsencesByStudentDto::toDto)
                 .collect(Collectors.toList());
-        AbsencesStudentDto firstAbsenceDto = absenceDtoList.get(0);
+        AbsencesByStudentDto firstAbsenceDto = absenceDtoList.get(0);
         return ResponseEntity.ok(firstAbsenceDto);
     }
 }

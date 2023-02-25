@@ -19,7 +19,7 @@ public class Absence implements Serializable {
     /*
     He quitado de todas las entidades el @GeneratedValue
     ya que pienso que se pueden tener id que no sean en orden,
-     y para ejecutar los PUT es mejor
+    y para ejecutar los PUT es mejor
      */
     @Column(name = "id")
     private Integer id;
