@@ -3,7 +3,6 @@ package org.iesfm.highschool.controllers;
 import org.iesfm.highschool.controllers.dto.StudentDto;
 import org.iesfm.highschool.entity.Absence;
 import org.iesfm.highschool.entity.Student;
-import org.iesfm.highschool.entity.Subject;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,10 +49,8 @@ public class StudentController {
         if (s != null) {
             s.setId(student.getId());
             s.setName(student.getName());
-            s.setFirstSurname(student.getFirstSurname());
-            s.setSecondSurname(student.getSecondSurname());
-            s.setAbsences(student.getAbsences());
-            s.setSubjects(student.getSubjects());
+            s.setFirst_surname(student.getFirst_surname());
+            s.setSecond_surname(student.getSecond_surname());
             schoolService.addStudent(s);
             return ResponseEntity.ok().body(s);
         } else {
@@ -64,16 +61,7 @@ public class StudentController {
     @DeleteMapping(path = "/students/{studentId}")
     public ResponseEntity<Void> deleteStudent(
             @PathVariable("studentId") Integer studentId) {
-        schoolService.deleteStudent(studentId);
-        return ResponseEntity.ok().build();
-    }
-
-    //ej3
-    @GetMapping("/alumnos/{id}/faltas")
-    public ResponseEntity<Integer> obtenerFaltas(@PathVariable("id") Integer id) {
-        Optional<Student> student= Optional.ofNullable(schoolService.getStudentById(id));
-        if (student.isPresent()) {
-            List<Absence> faltas = student.get().getAbsences();
+        if (schoolService.deleteStudent(studentId)) {
             return ResponseEntity.ok().build();
         } else {
             return ResponseEntity.notFound().build();

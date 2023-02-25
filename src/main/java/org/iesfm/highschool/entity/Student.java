@@ -21,9 +21,9 @@ public class Student implements Serializable {
     @Column(name = "name")
     private String name;
     @Column(name = "first_surname")
-    private String firstSurname;
+    private String first_surname;
     @Column(name = "second_surname")
-    private String secondSurname;
+    private String second_surname;
     @OneToMany(mappedBy = "student")
     private List<Absence> absences;
     @ManyToMany(mappedBy = "students")

@@ -23,7 +23,7 @@ public class AbsenceDto {
     private Timestamp date;
     @NotNull
     @Positive
-    private Integer numHours;
+    private Integer num_hours;
 
     @NotNull
     private StudentDto student;
@@ -35,7 +35,7 @@ public class AbsenceDto {
         return new Absence(
                 dto.getId(),
                 dto.getDate(),
-                dto.getNumHours(),
+                dto.getNum_hours(),
                 StudentDto.toEntity(dto.getStudent()),
                 SubjectDto.toEntity(dto.getSubject())
         );
@@ -45,7 +45,7 @@ public class AbsenceDto {
         return new AbsenceDto(
                 absence.getId(),
                 absence.getDate(),
-                absence.getNumHours(),
+                absence.getNum_hours(),
                 StudentDto.toDto(absence.getStudent()),
                 SubjectDto.toDto(absence.getSubject())
         );

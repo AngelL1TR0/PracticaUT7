@@ -1,9 +1,6 @@
 package org.iesfm.highschool.controllers;
 
-import org.iesfm.highschool.controllers.dto.StudentDto;
 import org.iesfm.highschool.controllers.dto.TeacherDto;
-import org.iesfm.highschool.dao.TeacherDAO;
-import org.iesfm.highschool.entity.Subject;
 import org.iesfm.highschool.entity.Teacher;
 import org.iesfm.highschool.service.SchoolService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,9 +47,8 @@ public class TeacherController {
         if (t != null) {
             t.setId(teacher.getId());
             t.setName(teacher.getName());
-            t.setFirstSurname(teacher.getFirstSurname());
-            t.setSecondSurname(teacher.getSecondSurname());
-            t.setSubjects(teacher.getSubjects());
+            t.setFirst_surname(teacher.getFirst_surname());
+            t.setSecond_surname(teacher.getSecond_surname());
             schoolService.addTeacher(t);
             return ResponseEntity.ok().body(t);
         } else {
@@ -63,7 +59,10 @@ public class TeacherController {
     @DeleteMapping(path = "/teacher/{teacherId}")
     public ResponseEntity<Void> deleteTeacher(
             @PathVariable("teacherId") Integer teacherId) {
-        schoolService.deleteTeacher(teacherId);
-        return ResponseEntity.ok().build();
+        if (schoolService.deleteTeacher(teacherId)) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

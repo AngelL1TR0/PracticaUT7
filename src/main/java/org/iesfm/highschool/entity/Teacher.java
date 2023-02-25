@@ -18,11 +18,11 @@ public class Teacher implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Column(name = "first_surname")
-    private String firstSurname;
+    private String first_surname;
     @Column(name = "name")
     private String name;
     @Column(name = "second_surname")
-    private String secondSurname;
+    private String second_surname;
     @OneToMany(mappedBy = "teacher")
     private List<Subject> subjects;
 

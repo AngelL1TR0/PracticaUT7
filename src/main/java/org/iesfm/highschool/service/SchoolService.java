@@ -11,8 +11,9 @@ import org.iesfm.highschool.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SchoolService {
@@ -78,20 +79,40 @@ public class SchoolService {
         }
     }
 
-    public void deleteTeacher(Integer teacherId) {
-        teacherDAO.deleteById(teacherId);
+    public boolean deleteTeacher(Integer teacherId) {
+        try {
+            teacherDAO.deleteById(teacherId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void deleteStudent(Integer studentId) {
-        studentDAO.deleteById(studentId);
+    public boolean deleteStudent(Integer studentId) {
+        try {
+            teacherDAO.deleteById(studentId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void deleteSubject(Integer subjectId) {
-         subjectDAO.deleteById(subjectId);
+    public boolean deleteSubject(Integer subjectId) {
+        try {
+            teacherDAO.deleteById(subjectId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
-    public void deleteAbsence(Integer absenceId) {
-        absenceDAO.deleteById(absenceId);
+    public boolean deleteAbsence(Integer absenceId) {
+        try {
+            teacherDAO.deleteById(absenceId);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public Teacher getTeacherById(Integer id) {
@@ -105,23 +126,37 @@ public class SchoolService {
     public Student getStudentById(Integer id) {
         return studentDAO.findById(id).orElse(null);
     }
+
     public Absence getAbsenceById(Integer id) {
         return absenceDAO.findById(id).orElse(null);
     }
-/*
-    public List<Student> getStudentsWithExcessiveAbsences(Integer subjectId, Double threshold) {
-        List<Student> students = subjectDAO.getStudentsBySubjectId(subjectId);
-        List<Student> studentsWithExcessiveAbsences = new ArrayList<>();
-        for (Student student : students) {
-            Integer totalHours = subjectDAO.getTotalHoursByStudentAndSubject(student.getId(), subjectId);
-            Integer totalAbsences = subjectDAO.getTotalAbsencesByStudentAndSubject(student.getId(), subjectId);
-            Double absencePercentage = (double) totalAbsences / totalHours * 100;
-            if (absencePercentage > threshold) {
-                studentsWithExcessiveAbsences.add(student);
+
+
+    public Set<Student> getStudentsByPercentage(Subject subject, double percentage) {
+        Set<Student> studentsByPercentage = new HashSet<>();
+        int totalHours = subject.getTotal_hours();
+        double percentageOfAbsences;
+        for (int i = 0; i < 100; i++) {
+            List<Absence> absences = absenceDAO.findBySubject_IdAndStudent_id(subject.getId(), i);
+            int studentTotalAbsences = 0;
+            for (Absence absence : absences) {
+                studentTotalAbsences = studentTotalAbsences + absence.getNum_hours();
+            }
+            percentageOfAbsences = (studentTotalAbsences * 100) / totalHours;
+
+            if (percentageOfAbsences > percentage) {
+                studentsByPercentage.add(absences.get(0).getStudent());
             }
         }
-        return studentsWithExcessiveAbsences;
+        return studentsByPercentage;
     }
 
- */
+    public List<Absence> getAbsencesByStudentId(Integer studentId) {
+        Student student = studentDAO.findById(studentId).orElse(null);
+        List<Absence> absences = student.getAbsences();
+        if (absences.size() > 1) {
+            absences = absences.subList(0, 1);
+        }
+        return absences;
+    }
 }

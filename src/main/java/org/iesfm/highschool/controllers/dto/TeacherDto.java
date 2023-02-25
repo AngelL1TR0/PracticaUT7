@@ -18,18 +18,18 @@ public class TeacherDto {
     @Positive
     private Integer id;
     @NotBlank
-    private String firstSurname;
+    private String first_surname;
     @NotBlank
     private String name;
     @NotBlank
-    private String secondSurname;
+    private String second_surname;
 
     public static Teacher toEntity(TeacherDto dto) {
         return new Teacher(
                 dto.getId(),
-                dto.getFirstSurname(),
+                dto.getFirst_surname(),
                 dto.getName(),
-                dto.getSecondSurname(),
+                dto.getSecond_surname(),
                 new ArrayList<>()
         );
     }
@@ -37,9 +37,9 @@ public class TeacherDto {
     public static TeacherDto toDto(Teacher teacher) {
         return new TeacherDto(
                 teacher.getId(),
-                teacher.getFirstSurname(),
+                teacher.getFirst_surname(),
                 teacher.getName(),
-                teacher.getSecondSurname()
+                teacher.getSecond_surname()
         );
     }
 }

@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 import java.sql.Timestamp;
 
 @Data
@@ -28,7 +27,7 @@ public class Absence implements Serializable {
     @JsonFormat(pattern = "dd-MM-yyyy")
     private Timestamp date;
     @Column(name = "num_hours")
-    private Integer numHours;
+    private Integer num_hours;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student")
     private Student student;

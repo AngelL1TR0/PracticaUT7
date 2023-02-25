@@ -21,7 +21,7 @@ public class Subject implements Serializable {
     @Column(name = "name")
     private String name;
     @Column(name = "total_hours")
-    private Integer totalHours;
+    private Integer total_hours;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "teacher")
     private Teacher teacher;

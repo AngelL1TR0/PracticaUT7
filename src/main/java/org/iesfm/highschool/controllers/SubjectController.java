@@ -47,10 +47,7 @@ public class SubjectController {
         if (s != null) {
             s.setId(subject.getId());
             s.setName(subject.getName());
-            s.setTotalHours(subject.getTotalHours());
-            s.setTeacher(subject.getTeacher());
-            s.setAbsences(subject.getAbsences());
-            s.setStudents(subject.getStudents());
+            s.setTotal_hours(subject.getTotal_hours());
             schoolService.addSubject(s);
             return ResponseEntity.ok().body(s);
         } else {
@@ -61,22 +58,10 @@ public class SubjectController {
     @DeleteMapping(path = "/subject/{subjectId}")
     public ResponseEntity<Void> deleteSubject(
             @PathVariable("subjectId") Integer subjectId) {
-        schoolService.deleteSubject(subjectId);
-        return ResponseEntity.ok().build();
-    }
-
-    //endpoint para el ejercicio 2
-/*
-    @GetMapping("/{subjectId}/students")
-    public ResponseEntity<List<Student>> getStudentsWithExcessiveAbsences(
-            @PathVariable("subjectId") Integer subjectId,
-            @RequestParam(value = "threshold", required = false, defaultValue = "10") Double threshold) {
-        List<Student> students = schoolService.getStudentsWithExcessiveAbsences(subjectId, threshold);
-        if (students.isEmpty()) {
+        if (schoolService.deleteSubject(subjectId)) {
+            return ResponseEntity.ok().build();
+        } else {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(students);
     }
-
- */
 }
